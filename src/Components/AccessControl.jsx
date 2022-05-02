@@ -33,7 +33,10 @@ const AccessControl = () => {
     setTabValue(newValue);
   };
   return (
-    <Box>
+    <Box
+      component="main"
+      sx={{ flexGrow: 0, bgcolor: 'yellow', p: 3, height: '100vh' }}
+    >
       <Grid item xs={8}>
         <List>
           <ListItem className={classes.list}>

@@ -12,7 +12,8 @@ import {
 } from '@material-ui/core';
 import { TabContext, TabList, TabPanel } from '@material-ui/lab';
 import { useNavigate, useLocation } from 'react-router-dom';
-import Permissions from '../Components/Permissions';
+//import Permissions from '../Components/Permissions';
+import AccessControl from '../Components/AccessControl';
 import { useState } from 'react';
 import RssFeedIcon from '@material-ui/icons/RssFeed';
 import SecurityIcon from '@material-ui/icons/Security';
@@ -104,7 +105,7 @@ const SideBar = () => {
             </TabList>
             <Divider />
             <TabPanel value="1">
-              <Permissions />
+              <AccessControl />
             </TabPanel>
             <TabPanel value="2">Approval matrix</TabPanel>
           </TabContext>
