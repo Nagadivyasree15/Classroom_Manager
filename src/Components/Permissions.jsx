@@ -13,9 +13,14 @@ import {
   List,
   ListItem,
   ListItemIcon,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
 } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import AddIcon from '@material-ui/icons/Add';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import departments from '../Database/db';
 
 const useStyle = makeStyles((theme) => ({
@@ -28,11 +33,16 @@ const useStyle = makeStyles((theme) => ({
   listIcon: {
     marginLeft: '20px',
   },
+  addIcon: {
+    marginRight: '5px',
+  },
 }));
 const Permissions = () => {
   const classes = useStyle();
   const data = departments;
-  console.log(data);
+  const handleChange = (e) => {
+    console.log(e.target);
+  };
   return (
     <Box
       component="main"
@@ -45,7 +55,10 @@ const Permissions = () => {
         <Grid item xs={8}>
           <List>
             <ListItem className={classes.list}>
-              <Button variant="contained">Add Role</Button>
+              <Button variant="contained" color="secondary">
+                <AddIcon className={classes.addIcon} />
+                Add Role
+              </Button>
               <ListItemIcon className={classes.listIcon}>
                 <EditIcon />
               </ListItemIcon>
@@ -64,15 +77,31 @@ const Permissions = () => {
               <TableCell>Access Level</TableCell>
               <TableCell>No of members</TableCell>
               <TableCell>Last Updated</TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {data.map((item) => (
               <TableRow key={item['id']}>
-                <TableCell>{item['Department']}</TableCell>
-                <TableCell>{item['Access Level']}</TableCell>
+                <TableCell>
+                  <RadioGroup onChange={handleChange}>
+                    <FormControlLabel
+                      value={item['Department']}
+                      label={item['Department']}
+                      control={<Radio />}
+                    ></FormControlLabel>
+                  </RadioGroup>
+                </TableCell>
+                <TableCell>
+                  <Button variant="contained" borderRadius="50">
+                    {item['Access Level']}
+                  </Button>
+                </TableCell>
                 <TableCell>{item['No of members']}</TableCell>
                 <TableCell>{item['Last Updated']}</TableCell>
+                <TableCell>
+                  <VisibilityIcon />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

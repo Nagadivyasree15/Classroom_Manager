@@ -6,8 +6,8 @@ import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 const useStyle = makeStyles({
   box: {
-    backgroundColor: 'blue',
     height: '8vh',
+    backgroundColor: '#ffffff',
   },
   grid: {
     fontWeight: 'bold',
@@ -44,15 +44,8 @@ function App() {
               Classroom Manager
             </Grid>
           </Grid>
-          <Grid item xs="6" style={{ backgroundColor: 'red' }}></Grid>
-          <Grid
-            item
-            xs="2"
-            style={{ backgroundColor: 'pink' }}
-            container
-            direction="row"
-            alignItems="center"
-          >
+          <Grid item xs="6"></Grid>
+          <Grid item xs="2" container direction="row" alignItems="center">
             <Grid item xs="1" className={classes.nameIcon}>
               <FiberManualRecordIcon fontSize="large" />
             </Grid>
@@ -63,7 +56,6 @@ function App() {
           <Grid
             item
             xs="1"
-            style={{ backgroundColor: 'yellow' }}
             container
             direction="column"
             display="flex"
@@ -79,7 +71,6 @@ function App() {
             direction="column"
             display="flex"
             justify="center"
-            style={{ backgroundColor: 'pink' }}
           >
             <HelpOutlineIcon fontSize="large" className={classes.notf} />
           </Grid>
