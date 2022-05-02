@@ -11,6 +11,7 @@ import {
   makeStyles,
   Button,
 } from '@material-ui/core';
+import EditIcon from '@material-ui/icons/Edit';
 import departments from '../Database/db';
 
 const useStyle = makeStyles({
@@ -29,11 +30,11 @@ const Permissions = () => {
     >
       <Grid
         container
-        spacing={2}
         style={{ backgroundColor: '#ffffff', marginBottom: '20px' }}
       >
         <Grid item xs={8}>
           <Button variant="contained">Add Role</Button>
+          <EditIcon />
         </Grid>
       </Grid>
       <TableContainer component={Paper}>
