@@ -1,39 +1,37 @@
-{
-  "departments": [
-    {
-      "id": 1,
-      "Department": "Teachers",
-      "Access Level": "All Access",
-      "No of members": 4,
-      "Last Updated": "1 min ago"
-    },
-    {
-      "id": 2,
-      "Department": "External Faculty",
-      "Access Level": "Restricted Access",
-      "No of members": 8,
-      "Last Updated": "1 min ago"
-    },
-    {
-      "id": 3,
-      "Department": "Lab Assistants",
-      "Access Level": "Restricted Access",
-      "No of members": 16,
-      "Last Updated": "1 min ago"
-    },
-    {
-      "id": 4,
-      "Department": "Non-teaching staff",
-      "Access Level": "Restricted Access",
-      "No of members": 4,
-      "Last Updated": "1 min ago"
-    },
-    {
-      "id": 5,
-      "Department": "Supervisors",
-      "Access Level": "All Access",
-      "No of members": 1,
-      "Last Updated": "1 min ago"
-    }
-  ]
-}
+[
+  {
+    "id": 1,
+    "Department": "Teachers",
+    "Access Level": "All Access",
+    "No of members": 4,
+    "Last Updated": "1 min ago"
+  },
+  {
+    "id": 2,
+    "Department": "External Faculty",
+    "Access Level": "Restricted Access",
+    "No of members": 8,
+    "Last Updated": "1 min ago"
+  },
+  {
+    "id": 3,
+    "Department": "Lab Assistants",
+    "Access Level": "Restricted Access",
+    "No of members": 16,
+    "Last Updated": "1 min ago"
+  },
+  {
+    "id": 4,
+    "Department": "Non-teaching staff",
+    "Access Level": "Restricted Access",
+    "No of members": 4,
+    "Last Updated": "1 min ago"
+  },
+  {
+    "id": 5,
+    "Department": "Supervisors",
+    "Access Level": "All Access",
+    "No of members": 1,
+    "Last Updated": "1 min ago"
+  }
+]

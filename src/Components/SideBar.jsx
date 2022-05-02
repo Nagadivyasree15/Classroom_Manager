@@ -76,10 +76,10 @@ const SideBar = () => {
             <Tab label="Approval Matrix" className={classes.tabs} value="2" />
           </TabList>
           <Divider />
-          <TabPanel value={tabValue}>
+          <TabPanel value="1">
             <Permissions />
           </TabPanel>
-          <TabPanel value={tabValue}>Approval matrix</TabPanel>
+          <TabPanel value="2">Approval matrix</TabPanel>
         </TabContext>
       </Box>
       <Drawer className={classes.drawer} variant="permanent" anchor="left">
