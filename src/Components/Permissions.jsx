@@ -10,15 +10,25 @@ import {
   Grid,
   makeStyles,
   Button,
+  List,
+  ListItem,
+  ListItemIcon,
 } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import departments from '../Database/db';
 
-const useStyle = makeStyles({
+const useStyle = makeStyles((theme) => ({
   tableHead: {
     backgroundColor: 'rgb(240,240,210)',
   },
-});
+  list: {
+    display: 'inline-flex',
+  },
+  listIcon: {
+    marginLeft: '20px',
+  },
+}));
 const Permissions = () => {
   const classes = useStyle();
   const data = departments;
@@ -33,8 +43,17 @@ const Permissions = () => {
         style={{ backgroundColor: '#ffffff', marginBottom: '20px' }}
       >
         <Grid item xs={8}>
-          <Button variant="contained">Add Role</Button>
-          <EditIcon />
+          <List>
+            <ListItem className={classes.list}>
+              <Button variant="contained">Add Role</Button>
+              <ListItemIcon className={classes.listIcon}>
+                <EditIcon />
+              </ListItemIcon>
+              <ListItemIcon>
+                <DeleteOutlineIcon />
+              </ListItemIcon>
+            </ListItem>
+          </List>
         </Grid>
       </Grid>
       <TableContainer component={Paper}>
