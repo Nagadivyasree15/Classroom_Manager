@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Box, Grid, makeStyles } from '@material-ui/core';
 import SideBar from './Components/SideBar';
+import AccessControl from './Components/AccessControl';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
@@ -80,6 +81,7 @@ function App() {
         <SideBar />
         <Routes>
           <Route path="/" element={<SideBar />} />
+          <Route path="/access_control" element={<AccessControl />} />
         </Routes>
       </BrowserRouter>
     </Box>

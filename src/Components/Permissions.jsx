@@ -51,65 +51,67 @@ const Permissions = () => {
       component="main"
       sx={{ flexGrow: 0, bgcolor: 'red', p: 3, height: '100vh' }}
     >
-      <Grid
-        container
-        style={{ backgroundColor: '#ffffff', marginBottom: '20px' }}
-      >
-        <Grid item xs={8}>
-          <List>
-            <ListItem className={classes.list}>
-              <Button variant="contained" color="secondary">
-                <AddIcon className={classes.addIcon} />
-                Add Role
-              </Button>
-              <ListItemIcon className={classes.listIcon}>
-                <EditIcon />
-              </ListItemIcon>
-              <ListItemIcon>
-                <DeleteOutlineIcon />
-              </ListItemIcon>
-            </ListItem>
-          </List>
+      <Box>
+        <Grid
+          container
+          style={{ backgroundColor: '#ffffff', marginBottom: '20px' }}
+        >
+          <Grid item xs={8}>
+            <List>
+              <ListItem className={classes.list}>
+                <Button variant="contained" color="secondary">
+                  <AddIcon className={classes.addIcon} />
+                  Add Role
+                </Button>
+                <ListItemIcon className={classes.listIcon}>
+                  <EditIcon />
+                </ListItemIcon>
+                <ListItemIcon>
+                  <DeleteOutlineIcon />
+                </ListItemIcon>
+              </ListItem>
+            </List>
+          </Grid>
         </Grid>
-      </Grid>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow className={classes.tableHead}>
-              <TableCell>Department/Role Name</TableCell>
-              <TableCell>Access Level</TableCell>
-              <TableCell>No of members</TableCell>
-              <TableCell>Last Updated</TableCell>
-              <TableCell></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data.map((item) => (
-              <TableRow key={item['id']}>
-                <TableCell>
-                  <RadioGroup onChange={handleChange} value={department}>
-                    <FormControlLabel
-                      value={item['Department']}
-                      label={item['Department']}
-                      control={<Radio />}
-                    ></FormControlLabel>
-                  </RadioGroup>
-                </TableCell>
-                <TableCell>
-                  <Button variant="contained" borderRadius="50">
-                    {item['Access Level']}
-                  </Button>
-                </TableCell>
-                <TableCell>{item['No of members']}</TableCell>
-                <TableCell>{item['Last Updated']}</TableCell>
-                <TableCell>
-                  <VisibilityIcon />
-                </TableCell>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow className={classes.tableHead}>
+                <TableCell>Department/Role Name</TableCell>
+                <TableCell>Access Level</TableCell>
+                <TableCell>No of members</TableCell>
+                <TableCell>Last Updated</TableCell>
+                <TableCell></TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {data.map((item) => (
+                <TableRow key={item['id']}>
+                  <TableCell>
+                    <RadioGroup onChange={handleChange} value={department}>
+                      <FormControlLabel
+                        value={item['Department']}
+                        label={item['Department']}
+                        control={<Radio />}
+                      ></FormControlLabel>
+                    </RadioGroup>
+                  </TableCell>
+                  <TableCell>
+                    <Button variant="contained" borderRadius="50">
+                      {item['Access Level']}
+                    </Button>
+                  </TableCell>
+                  <TableCell>{item['No of members']}</TableCell>
+                  <TableCell>{item['Last Updated']}</TableCell>
+                  <TableCell>
+                    <VisibilityIcon />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
     </Box>
   );
 };
