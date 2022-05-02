@@ -1,27 +1,45 @@
-import { Box, Typography } from '@material-ui/core';
-// import { useEffect } from 'react';
-//import departments from '../Database/db';
+import {
+  Box,
+  Table,
+  TableBody,
+  TableContainer,
+  TableRow,
+  TableCell,
+  TableHead,
+  Paper,
+} from '@material-ui/core';
+import departments from '../Database/db';
 
 const Permissions = () => {
+  const data = departments;
+  console.log(data);
   return (
     <Box
       component="main"
       sx={{ flexGrow: 0, bgcolor: 'red', p: 6, height: '100vh' }}
     >
-      <Typography paragraph>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus
-        non enim praesent elementum facilisis leo vel. Risus at ultrices mi
-        tempus imperdiet. Semper risus in hendrerit gravida rutrum quisque non
-        tellus. Convallis convallis tellus id interdum velit laoreet id donec
-        ultrices. Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl
-        suscipit adipiscing bibendum est ultricies integer quis. Cursus euismod
-        quis viverra nibh cras. Metus vulputate eu scelerisque felis imperdiet
-        proin fermentum leo. Mauris commodo quis imperdiet massa tincidunt. Cras
-        tincidunt lobortis feugiat vivamus at augue. At augue eget arcu dictum
-        varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt.
-        Lorem donec massa sapien faucibus et molestie ac.
-      </Typography>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Department/Role Name</TableCell>
+              <TableCell>Access Level</TableCell>
+              <TableCell>No of members</TableCell>
+              <TableCell>Last Updated</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {/* {data.map((item) => (
+              <TableRow key={item['id']}>
+                <TableCell>{item['Department']}</TableCell>
+                <TableCell>{item['Access Level']}</TableCell>
+                <TableCell>{item['No of members']}</TableCell>
+                <TableCell>{item['Last Updated']}</TableCell>
+              </TableRow>
+            ))} */}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Box>
   );
 };
