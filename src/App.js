@@ -10,12 +10,24 @@ const useStyle = makeStyles({
     height: '8vh',
   },
   grid: {
-    backgroundColor: 'pink',
     fontWeight: 'bold',
     fontSize: '20px',
+    marginLeft: '25px',
   },
   icon: {
     fontSize: 50,
+  },
+  name: {
+    fontSize: '15px',
+    marginLeft: '20px',
+    marginTop: '10px',
+  },
+  nameIcon: {
+    marginTop: '9px',
+    marginLeft: '170px',
+  },
+  notf: {
+    marginTop: '9px',
   },
 });
 function App() {
@@ -28,19 +40,48 @@ function App() {
             <Grid item xs="1">
               <FiberManualRecordIcon className={classes.icon} />
             </Grid>
-            <Grid item xs="1">
-              Classroom manager
+            <Grid item xs="1" className={classes.grid}>
+              Classroom Manager
             </Grid>
           </Grid>
           <Grid item xs="6" style={{ backgroundColor: 'red' }}></Grid>
-          <Grid item xs="2" style={{ backgroundColor: 'pink' }}>
-            <FiberManualRecordIcon fontSize="large" /> Divya
+          <Grid
+            item
+            xs="2"
+            style={{ backgroundColor: 'pink' }}
+            container
+            direction="row"
+            alignItems="center"
+          >
+            <Grid item xs="1" className={classes.nameIcon}>
+              <FiberManualRecordIcon fontSize="large" />
+            </Grid>
+            <Grid item xs="1" className={classes.name}>
+              Divya
+            </Grid>
           </Grid>
-          <Grid item xs="1" style={{ backgroundColor: 'yellow' }}>
-            <NotificationsNoneIcon />
+          <Grid
+            item
+            xs="1"
+            style={{ backgroundColor: 'yellow' }}
+            container
+            direction="column"
+            display="flex"
+            justify="center"
+            alignItems="center"
+          >
+            <NotificationsNoneIcon fontSize="large" className={classes.notf} />
           </Grid>
-          <Grid item xs="1" style={{ backgroundColor: 'pink' }}>
-            <HelpOutlineIcon />
+          <Grid
+            item
+            xs="1"
+            container
+            direction="column"
+            display="flex"
+            justify="center"
+            style={{ backgroundColor: 'pink' }}
+          >
+            <HelpOutlineIcon fontSize="large" className={classes.notf} />
           </Grid>
         </Grid>
       </Box>
