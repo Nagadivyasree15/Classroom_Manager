@@ -21,6 +21,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import AddIcon from '@material-ui/icons/Add';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import { useState } from 'react';
 import departments from '../Database/db';
 
 const useStyle = makeStyles((theme) => ({
@@ -39,9 +40,11 @@ const useStyle = makeStyles((theme) => ({
 }));
 const Permissions = () => {
   const classes = useStyle();
+  const [department, setDepartment] = useState('');
   const data = departments;
   const handleChange = (e) => {
-    console.log(e.target);
+    console.log(e.target.value);
+    setDepartment(e.target.value);
   };
   return (
     <Box
@@ -84,7 +87,7 @@ const Permissions = () => {
             {data.map((item) => (
               <TableRow key={item['id']}>
                 <TableCell>
-                  <RadioGroup onChange={handleChange}>
+                  <RadioGroup onChange={handleChange} value={department}>
                     <FormControlLabel
                       value={item['Department']}
                       label={item['Department']}
