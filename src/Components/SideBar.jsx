@@ -4,18 +4,20 @@ import {
   List,
   ListItem,
   ListItemText,
+  ListItemIcon,
   makeStyles,
   Box,
   Tab,
   Divider,
-  ThemeProvider,
-  createTheme,
 } from '@material-ui/core';
 import { TabContext, TabList, TabPanel } from '@material-ui/lab';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Permissions from '../Components/Permissions';
 import { useState } from 'react';
 import RssFeedIcon from '@material-ui/icons/RssFeed';
+import SecurityIcon from '@material-ui/icons/Security';
+import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
+import GridOnIcon from '@material-ui/icons/GridOn';
 
 const drawerWidth = 240;
 const useStyle = makeStyles({
@@ -30,9 +32,8 @@ const useStyle = makeStyles({
     '& .MuiDrawer-paper': {
       width: drawerWidth,
       boxSizing: 'border-box',
-    },
-    paper: {
-      backgroundColor: 'pink',
+      marginTop: '8vh',
+      backgroundColor: 'rgb(240,240,240)',
     },
   },
   appBar: {
@@ -52,17 +53,7 @@ const useStyle = makeStyles({
     flexFlow: 'nowrap',
   },
 });
-const theme = createTheme({
-  components: {
-    MuiDrawer: {
-      styleOverrides: {
-        paper: {
-          backgroundColor: 'pink',
-        },
-      },
-    },
-  },
-});
+
 const SideBar = () => {
   const classes = useStyle();
   const navigate = useNavigate();
@@ -72,14 +63,17 @@ const SideBar = () => {
     {
       text: 'Projects',
       path: '/projects',
+      icon: <GridOnIcon />,
     },
     {
       text: 'Classrooms',
       path: '/classrooms',
+      icon: <BusinessCenterIcon />,
     },
     {
       text: 'Permissions',
       path: '/permissions',
+      icon: <SecurityIcon />,
     },
   ];
   const handleChange = (event, newValue) => {
@@ -87,7 +81,7 @@ const SideBar = () => {
     setTabValue(newValue);
   };
   return (
-    <Box style={{ backgroundColor: 'blue' }}>
+    <Box>
       <Box className={classes.box}>
         <CssBaseline />
         <Box className={classes.appBar}>
@@ -96,11 +90,17 @@ const SideBar = () => {
               <Tab
                 label="Permissions"
                 icon={<RssFeedIcon />}
-                iconposition="start"
+                iconPosition="bottom"
                 className={classes.tabs}
                 value="1"
               />
-              <Tab label="Approval Matrix" className={classes.tabs} value="2" />
+              <Tab
+                label="Approval Matrix"
+                icon={<GridOnIcon />}
+                iconPosition="bottom"
+                className={classes.tabs}
+                value="2"
+              />
             </TabList>
             <Divider />
             <TabPanel value="1">
@@ -109,29 +109,23 @@ const SideBar = () => {
             <TabPanel value="2">Approval matrix</TabPanel>
           </TabContext>
         </Box>
-        <ThemeProvider theme={theme}>
-          <Drawer
-            className={classes.drawer}
-            classes={{ paper: classes.paper }}
-            variant="permanent"
-            anchor="left"
-          >
-            <List>
-              {sideBarItems.map((item) => (
-                <ListItem
-                  button
-                  key={item.text}
-                  onClick={() => navigate(item.path)}
-                  className={
-                    location.pathname === item.path ? classes.active : null
-                  }
-                >
-                  <ListItemText primary={item.text} />
-                </ListItem>
-              ))}
-            </List>
-          </Drawer>
-        </ThemeProvider>
+        <Drawer className={classes.drawer} variant="permanent" anchor="left">
+          <List>
+            {sideBarItems.map((item) => (
+              <ListItem
+                button
+                key={item.text}
+                onClick={() => navigate(item.path)}
+                className={
+                  location.pathname === item.path ? classes.active : null
+                }
+              >
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.text} />
+              </ListItem>
+            ))}
+          </List>
+        </Drawer>
       </Box>
     </Box>
   );
