@@ -1,21 +1,25 @@
 import {
-  AppBar,
   Drawer,
-  Toolbar,
   CssBaseline,
   List,
   ListItem,
   ListItemText,
   makeStyles,
   Box,
+  Tab,
+  Divider,
 } from '@material-ui/core';
-import { NavLink, useNavigate, useLocation } from 'react-router-dom';
+import { TabContext, TabList, TabPanel } from '@material-ui/lab';
+import { useNavigate, useLocation } from 'react-router-dom';
+import Permissions from '../Components/Permissions';
+import { useState } from 'react';
 
 const drawerWidth = 240;
 const useStyle = makeStyles({
   tabs: {
-    fontSize: 20,
+    fontSize: 15,
     color: '#000000',
+    marginRight: 20,
   },
   drawer: {
     width: drawerWidth,
@@ -27,8 +31,9 @@ const useStyle = makeStyles({
   },
   appBar: {
     width: `calc(100% - ${drawerWidth}px)`,
-    backgroundColor: '#ffffff',
     marginLeft: `${drawerWidth}px`,
+    position: 'fixed',
+    backgroundColor: '#ffffff',
   },
   box: {
     display: 'flex',
@@ -42,6 +47,7 @@ const SideBar = () => {
   const classes = useStyle();
   const navigate = useNavigate();
   const location = useLocation();
+  const [tabValue, setTabValue] = useState('1');
   const sideBarItems = [
     {
       text: 'Projects',
@@ -56,19 +62,26 @@ const SideBar = () => {
       path: '/permissions',
     },
   ];
+  const handleChange = (event, newValue) => {
+    console.log(newValue, event);
+    setTabValue(newValue);
+  };
   return (
     <Box className={classes.box}>
       <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <NavLink to="./" className={classes.tabs}>
-            Permissions
-          </NavLink>
-          <NavLink to="/approval_matrix" className={classes.tabs}>
-            Approval Matrix
-          </NavLink>
-        </Toolbar>
-      </AppBar>
+      <Box className={classes.appBar}>
+        <TabContext value={tabValue}>
+          <TabList onChange={handleChange}>
+            <Tab label="Permissions" className={classes.tabs} value="1" />
+            <Tab label="Approval Matrix" className={classes.tabs} value="2" />
+          </TabList>
+          <Divider />
+          <TabPanel value={tabValue}>
+            <Permissions />
+          </TabPanel>
+          <TabPanel value={tabValue}>Approval matrix</TabPanel>
+        </TabContext>
+      </Box>
       <Drawer className={classes.drawer} variant="permanent" anchor="left">
         <List>
           {sideBarItems.map((item) => (
