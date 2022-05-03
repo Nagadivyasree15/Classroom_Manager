@@ -9,12 +9,13 @@ import {
   Box,
   Tab,
   Divider,
+  Grid,
 } from '@material-ui/core';
 import { TabContext, TabList, TabPanel } from '@material-ui/lab';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Permissions from '../Components/Permissions';
 //import AccessControl from '../Components/AccessControl';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import RssFeedIcon from '@material-ui/icons/RssFeed';
 import SecurityIcon from '@material-ui/icons/Security';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
@@ -51,7 +52,7 @@ const useStyle = makeStyles({
     color: 'red',
   },
   icon: {
-    flexFlow: 'nowrap',
+    marginRight: '5px',
   },
 });
 
@@ -60,13 +61,13 @@ const SideBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [tabValue, setTabValue] = useState('1');
-  const [state, setState] = useState('/');
-  useEffect(() => {
-    console.log(location.pathname);
-    if (location.pathname === 'permissions' || location.pathname === '/') {
-      setState(<Permissions />);
-    }
-  }, [location.pathname]);
+  //const [state, setState] = useState('/');
+  // useEffect(() => {
+  //   console.log(location.pathname);
+  //   if (location.pathname === 'permissions' || location.pathname === '/') {
+  //     setState(<Permissions />);
+  //   }
+  // }, [location.pathname]);
   const sideBarItems = [
     {
       text: 'Projects',
@@ -80,7 +81,7 @@ const SideBar = () => {
     },
     {
       text: 'Permissions',
-      path: '/permissions',
+      path: '/',
       icon: <SecurityIcon />,
     },
   ];
@@ -95,20 +96,30 @@ const SideBar = () => {
           <TabContext value={tabValue}>
             <TabList onChange={handleChange}>
               <Tab
-                label="Permissions"
-                icon={<RssFeedIcon />}
+                label={
+                  <Grid container>
+                    <RssFeedIcon className={classes.icon} />
+                    Permissions
+                  </Grid>
+                }
                 className={classes.tabs}
                 value="1"
               />
               <Tab
-                label="Approval Matrix"
-                icon={<GridOnIcon />}
+                label={
+                  <Grid container>
+                    <GridOnIcon className={classes.icon} />
+                    Approval Matrix
+                  </Grid>
+                }
                 className={classes.tabs}
                 value="2"
               />
             </TabList>
             <Divider />
-            <TabPanel value="1">{state}</TabPanel>
+            <TabPanel value="1">
+              <Permissions />
+            </TabPanel>
             <TabPanel value="2">Approval matrix</TabPanel>
           </TabContext>
         </Box>

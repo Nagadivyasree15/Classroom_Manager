@@ -79,10 +79,10 @@ function App() {
         </Grid>
       </Box>
       <BrowserRouter>
+        <SideBar />
         <Routes>
-          <Route path="/" element={<SideBar />} />
           <Route path="/access_control" element={<AccessControl />} />
-          <Route path="/permissions" element={<Permissions />} />
+          <Route path="/" element={<Permissions />} />
         </Routes>
       </BrowserRouter>
     </Box>
