@@ -8,30 +8,31 @@ import {
   Tab,
   Divider,
   Table,
-  TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
   Button,
   Paper,
-  Card,
+  IconButton,
   Collapse,
-  CardContent,
-  CardHeader,
   Typography,
+  TableBody,
   FormLabel,
   FormControl,
-  RadioGroup,
-  Radio,
   FormControlLabel,
+  Radio,
+  RadioGroup,
+  ListItemText,
+  FormGroup,
   Checkbox,
 } from '@material-ui/core';
 import { TabContext, TabList, TabPanel } from '@material-ui/lab';
 import EditIcon from '@material-ui/icons/Edit';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import { useState } from 'react';
+import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
+import React, { useState } from 'react';
 import roleData from '../Database/database';
 
 const useStyle = makeStyles({
@@ -64,31 +65,24 @@ const AccessControl = () => {
   const classes = useStyle();
   const [tabValue, setTabValue] = useState('1');
   const [expanded, setExpanded] = useState(false);
-  const [cardId, setCardId] = useState(0);
   const [accessValue, setAccessValue] = useState('allaccess');
-  const [checked, setChecked] = useState('');
+  const [checked, setChecked] = useState({
+    view: true,
+    edit: false,
+    create: false,
+    remove: false,
+  });
+  const { view, edit, create, remove } = checked;
   const data = roleData;
-  console.log(data);
   const handleChange = (event, newValue) => {
     console.log(newValue, event);
     setTabValue(newValue);
-  };
-  const handleCard = (e) => {
-    if (e.target.parentNode) {
-      let iconId = Number(e.target.parentNode.id);
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].id === iconId) {
-          setCardId(iconId);
-          setExpanded(!expanded);
-        }
-      }
-    }
   };
   const handleAccess = (e) => {
     setAccessValue(e.target.value);
   };
   const handlePermissions = (e) => {
-    setChecked('');
+    setChecked({ ...checked, [e.target.name]: e.target.checked });
   };
   return (
     <Box sx={{ flexGrow: 1, p: 2, height: '100vh' }}>
@@ -114,9 +108,10 @@ const AccessControl = () => {
               component={Paper}
               className={classes.tableContainer}
             >
-              <Table sx={{ minWidth: 800 }} aria-label="simple table">
+              <Table aria-label="simple table">
                 <TableHead>
                   <TableRow className={classes.tableHead}>
+                    <TableCell></TableCell>
                     <TableCell>Department/Role Name</TableCell>
                     <TableCell>Access Level</TableCell>
                     <TableCell>Summary</TableCell>
@@ -126,77 +121,171 @@ const AccessControl = () => {
                 </TableHead>
                 <TableBody>
                   {data.map((item) => (
-                    <TableRow key={item.id} id={item.id}>
-                      <TableCell id={item.id}>
-                        <AddCircleOutlineIcon
-                          className={classes.addIcon}
-                          onClick={handleCard}
-                          id={item.id}
-                        />
-                        {item.role}
-                      </TableCell>
-                      <TableCell>
-                        <Button variant="contained">{item.accesslevel}</Button>
-                      </TableCell>
-                      <TableCell>{item.summary}</TableCell>
-                      <TableCell>{item.lastupdated}</TableCell>
-                      <TableCell>
-                        <VisibilityIcon />
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                  {data.map((item) => (
-                    <Card key={item.id} className={classes.card}>
-                      <Collapse
-                        in={cardId === item.id ? expanded : null}
-                        timeout="auto"
-                        unmountOnExit
+                    <React.Fragment>
+                      <TableRow key={item.id} id={item.id}>
+                        <TableCell>
+                          <IconButton
+                            aria-label="expand row"
+                            size="small"
+                            onClick={() => setExpanded(!expanded)}
+                          >
+                            {expanded ? (
+                              <RemoveCircleOutlineIcon />
+                            ) : (
+                              <AddCircleOutlineIcon />
+                            )}
+                          </IconButton>
+                        </TableCell>
+                        <TableCell id={item.id}>{item.role}</TableCell>
+                        <TableCell>
+                          <Button variant="contained">
+                            {item.accesslevel}
+                          </Button>
+                        </TableCell>
+                        <TableCell>{item.summary}</TableCell>
+                        <TableCell>{item.lastupdated}</TableCell>
+                        <TableCell>
+                          <VisibilityIcon />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow
+                        key={`collapse_${item.id}`}
+                        style={{ backgroundColor: 'yellow' }}
                       >
-                        <CardHeader>
-                          <Typography>{`All apects in the ${item.role} module}`}</Typography>
-                        </CardHeader>
-                        <CardContent>
-                          <Grid sx={{ flexGrow: 1 }} container spacing={2}>
-                            <Grid item xs={8}>
-                              <Grid Container item xs={4}>
-                                <FormControl component="fieldset">
-                                  <FormLabel component>AccessControl</FormLabel>
-                                  <RadioGroup
-                                    value={accessValue}
-                                    onChange={handleAccess}
-                                  >
-                                    <FormControlLabel
-                                      value="allaccess"
-                                      control={<Radio />}
-                                      label="All Access"
-                                    ></FormControlLabel>
-                                    <FormControlLabel
-                                      value="restrictedaccess"
-                                      control={<Radio />}
-                                      label="Restricted Access"
-                                    ></FormControlLabel>
-                                  </RadioGroup>
-                                </FormControl>
+                        <TableCell
+                          style={{ paddingBottom: 0, paddingTop: 0 }}
+                          colSpan={6}
+                        >
+                          <Collapse
+                            in={expanded}
+                            timeout="auto"
+                            component="tr"
+                            unmountOnExit
+                          >
+                            <Box sx={{ margin: 1 }}>
+                              <Typography gutterBottom component="div">
+                                {`All aspects in the ${item.role} module`}
+                              </Typography>
+                              <Grid
+                                sx={{ flexGrow: 1 }}
+                                container
+                                style={{
+                                  backgroundColor: 'blue',
+                                }}
+                              >
+                                <Grid
+                                  item
+                                  xs={6}
+                                  style={{ backgroundColor: 'pink' }}
+                                >
+                                  <Grid>
+                                    <FormControl
+                                      fullWidth
+                                      style={{
+                                        backgroundColor: 'orange',
+                                      }}
+                                    >
+                                      <FormLabel>Access Control</FormLabel>
+                                      <RadioGroup
+                                        value={accessValue}
+                                        onChange={handleAccess}
+                                      >
+                                        <FormControlLabel
+                                          value="allaccess"
+                                          control={<Radio />}
+                                          label={
+                                            <List>
+                                              <ListItem>
+                                                <ListItemText
+                                                  primary="All Access"
+                                                  secondary="Can access all items"
+                                                ></ListItemText>
+                                              </ListItem>
+                                            </List>
+                                          }
+                                        />
+                                        <FormControlLabel
+                                          value="restrictedaccess"
+                                          control={<Radio />}
+                                          label={
+                                            <List>
+                                              <ListItem>
+                                                <ListItemText
+                                                  primary="Restricted Access"
+                                                  secondary="Can access only assigned or created items"
+                                                ></ListItemText>
+                                              </ListItem>
+                                            </List>
+                                          }
+                                        />
+                                      </RadioGroup>
+                                    </FormControl>
+                                  </Grid>
+                                </Grid>
+                                <Grid
+                                  item
+                                  xs={6}
+                                  style={{ backgroundColor: 'pink' }}
+                                >
+                                  <Grid>
+                                    <FormControl
+                                      fullWidth
+                                      style={{
+                                        backgroundColor: 'green',
+                                      }}
+                                    >
+                                      <FormLabel>Permissions</FormLabel>
+                                      <FormGroup>
+                                        <FormControlLabel
+                                          control={
+                                            <Checkbox
+                                              checked={view}
+                                              onChange={handlePermissions}
+                                              name="view"
+                                            />
+                                          }
+                                          label="View items in access"
+                                        />
+                                        <FormControlLabel
+                                          control={
+                                            <Checkbox
+                                              checked={edit}
+                                              onChange={handlePermissions}
+                                              name="edit"
+                                            />
+                                          }
+                                          label="Edit items in access"
+                                        />
+                                        <FormControlLabel
+                                          control={
+                                            <Checkbox
+                                              checked={create}
+                                              onChange={handlePermissions}
+                                              name="create"
+                                            />
+                                          }
+                                          label="Create items in access"
+                                        />
+                                        <FormControlLabel
+                                          control={
+                                            <Checkbox
+                                              checked={remove}
+                                              onChange={handlePermissions}
+                                              name="remove"
+                                            />
+                                          }
+                                          label="Deleted items in access"
+                                        />
+                                      </FormGroup>
+                                    </FormControl>
+                                  </Grid>
+                                </Grid>
                               </Grid>
-                              <Grid container item xs={4}>
-                                <FormControl component="fieldset">
-                                  <FormLabel component>Permissions</FormLabel>
-                                  <FormControlLabel
-                                    label="View items in access"
-                                    control={
-                                      <Checkbox
-                                        checked={checked}
-                                        onChange={handlePermissions}
-                                      />
-                                    }
-                                  ></FormControlLabel>
-                                </FormControl>
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                        </CardContent>
-                      </Collapse>
-                    </Card>
+                            </Box>
+                          </Collapse>
+                        </TableCell>
+                      </TableRow>
+                    </React.Fragment>
                   ))}
                 </TableBody>
               </Table>
