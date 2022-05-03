@@ -34,15 +34,18 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import ToggleOffIcon from '@material-ui/icons/ToggleOff';
 import ToggleOnIcon from '@material-ui/icons/ToggleOn';
+//import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import React, { useState } from 'react';
 import roleData from '../Database/database';
+import { useNavigate } from 'react-router-dom';
 
 const useStyle = makeStyles({
   list: {
     display: 'inline-flex',
   },
   listIcon: {
-    marginLeft: '20px',
+    marginLeft: '50px',
   },
   tabs: {
     fontSize: 15,
@@ -64,6 +67,7 @@ const useStyle = makeStyles({
   },
 });
 const AccessControl = () => {
+  const navigate = useNavigate();
   const classes = useStyle();
   const [tabValue, setTabValue] = useState('1');
   const [expanded, setExpanded] = useState(false);
@@ -106,12 +110,17 @@ const AccessControl = () => {
       }
     }
   };
-  console.log(iconId, expanded);
+  const goToPermissions = () => {
+    navigate('/permissions');
+  };
   return (
     <Box sx={{ flexGrow: 1, p: 2, height: '100vh' }}>
       <Grid item xs={12} style={{ backgroundColor: 'blue' }}>
         <List>
           <ListItem className={classes.list}>
+            <ListItemIcon onClick={goToPermissions}>
+              <ArrowBackIcon />
+            </ListItemIcon>
             Teachers
             <ListItemIcon className={classes.listIcon}>
               <EditIcon />
