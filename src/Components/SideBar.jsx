@@ -91,14 +91,12 @@ const SideBar = () => {
               <Tab
                 label="Permissions"
                 icon={<RssFeedIcon />}
-                iconPosition="bottom"
                 className={classes.tabs}
                 value="1"
               />
               <Tab
                 label="Approval Matrix"
                 icon={<GridOnIcon />}
-                iconPosition="bottom"
                 className={classes.tabs}
                 value="2"
               />

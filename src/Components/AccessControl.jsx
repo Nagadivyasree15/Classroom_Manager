@@ -18,6 +18,14 @@ import {
   Card,
   Collapse,
   CardContent,
+  CardHeader,
+  Typography,
+  FormLabel,
+  FormControl,
+  RadioGroup,
+  Radio,
+  FormControlLabel,
+  Checkbox,
 } from '@material-ui/core';
 import { TabContext, TabList, TabPanel } from '@material-ui/lab';
 import EditIcon from '@material-ui/icons/Edit';
@@ -57,6 +65,8 @@ const AccessControl = () => {
   const [tabValue, setTabValue] = useState('1');
   const [expanded, setExpanded] = useState(false);
   const [cardId, setCardId] = useState(0);
+  const [accessValue, setAccessValue] = useState('allaccess');
+  const [checked, setChecked] = useState('');
   const data = roleData;
   console.log(data);
   const handleChange = (event, newValue) => {
@@ -73,6 +83,12 @@ const AccessControl = () => {
         }
       }
     }
+  };
+  const handleAccess = (e) => {
+    setAccessValue(e.target.value);
+  };
+  const handlePermissions = (e) => {
+    setChecked('');
   };
   return (
     <Box sx={{ flexGrow: 1, p: 2, height: '100vh' }}>
@@ -118,15 +134,6 @@ const AccessControl = () => {
                           id={item.id}
                         />
                         {item.role}
-                        <Card className={classes.card}>
-                          <Collapse
-                            in={cardId === item.id ? expanded : null}
-                            timeout="auto"
-                            unmountOnExit
-                          >
-                            <CardContent>Hello</CardContent>
-                          </Collapse>
-                        </Card>
                       </TableCell>
                       <TableCell>
                         <Button variant="contained">{item.accesslevel}</Button>
@@ -137,6 +144,59 @@ const AccessControl = () => {
                         <VisibilityIcon />
                       </TableCell>
                     </TableRow>
+                  ))}
+                  {data.map((item) => (
+                    <Card key={item.id} className={classes.card}>
+                      <Collapse
+                        in={cardId === item.id ? expanded : null}
+                        timeout="auto"
+                        unmountOnExit
+                      >
+                        <CardHeader>
+                          <Typography>{`All apects in the ${item.role} module}`}</Typography>
+                        </CardHeader>
+                        <CardContent>
+                          <Grid sx={{ flexGrow: 1 }} container spacing={2}>
+                            <Grid item xs={8}>
+                              <Grid Container item xs={4}>
+                                <FormControl component="fieldset">
+                                  <FormLabel component>AccessControl</FormLabel>
+                                  <RadioGroup
+                                    value={accessValue}
+                                    onChange={handleAccess}
+                                  >
+                                    <FormControlLabel
+                                      value="allaccess"
+                                      control={<Radio />}
+                                      label="All Access"
+                                    ></FormControlLabel>
+                                    <FormControlLabel
+                                      value="restrictedaccess"
+                                      control={<Radio />}
+                                      label="Restricted Access"
+                                    ></FormControlLabel>
+                                  </RadioGroup>
+                                </FormControl>
+                              </Grid>
+                              <Grid container item xs={4}>
+                                <FormControl component="fieldset">
+                                  <FormLabel component>Permissions</FormLabel>
+                                  <FormControlLabel
+                                    label="View items in access"
+                                    control={
+                                      <Checkbox
+                                        checked={checked}
+                                        onChange={handlePermissions}
+                                      />
+                                    }
+                                  ></FormControlLabel>
+                                </FormControl>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                        </CardContent>
+                      </Collapse>
+                    </Card>
                   ))}
                 </TableBody>
               </Table>
