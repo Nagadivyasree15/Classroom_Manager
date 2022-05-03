@@ -81,8 +81,9 @@ function App() {
       <BrowserRouter>
         <SideBar />
         <Routes>
+          <Route path="/" element={<SideBar />} />
           <Route path="/access_control" element={<AccessControl />} />
-          <Route path="/" element={<Permissions />} />
+          <Route path="/permissions" element={<Permissions />} />
         </Routes>
       </BrowserRouter>
     </Box>

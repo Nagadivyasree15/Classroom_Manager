@@ -47,10 +47,7 @@ const Permissions = () => {
     setDepartment(e.target.value);
   };
   return (
-    <Box
-      component="main"
-      sx={{ flexGrow: 0, bgcolor: 'red', p: 3, height: '100vh' }}
-    >
+    <Box component="main" sx={{ flexGrow: 0, p: 3, height: '100vh' }}>
       <Grid
         container
         style={{ backgroundColor: '#ffffff', marginBottom: '20px' }}
