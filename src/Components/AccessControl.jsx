@@ -32,6 +32,8 @@ import EditIcon from '@material-ui/icons/Edit';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
+import ToggleOffIcon from '@material-ui/icons/ToggleOff';
+import ToggleOnIcon from '@material-ui/icons/ToggleOn';
 import React, { useState } from 'react';
 import roleData from '../Database/database';
 
@@ -66,6 +68,8 @@ const AccessControl = () => {
   const [tabValue, setTabValue] = useState('1');
   const [expanded, setExpanded] = useState(false);
   const [accessValue, setAccessValue] = useState('allaccess');
+  const [accessControl, setAccessControl] = useState('primary');
+  const [iconId, setIconId] = useState(0);
   const [checked, setChecked] = useState({
     view: true,
     edit: false,
@@ -75,15 +79,34 @@ const AccessControl = () => {
   const { view, edit, create, remove } = checked;
   const data = roleData;
   const handleChange = (event, newValue) => {
-    console.log(newValue, event);
     setTabValue(newValue);
   };
   const handleAccess = (e) => {
     setAccessValue(e.target.value);
+    if (accessValue === 'allaccess') {
+      setAccessControl('primary');
+    } else if (accessValue === 'restrictedaccess') {
+      setAccessControl('secondary');
+    }
   };
   const handlePermissions = (e) => {
     setChecked({ ...checked, [e.target.name]: e.target.checked });
   };
+  const handleRole = (e) => {
+    if (e.target) {
+      if (e.target.parentNode) {
+        let cellId = Number(e.target.parentNode.id);
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].id === cellId) {
+            console.log(cellId, data[i].id);
+            setIconId(cellId);
+            setExpanded(!expanded);
+          }
+        }
+      }
+    }
+  };
+  console.log(iconId, expanded);
   return (
     <Box sx={{ flexGrow: 1, p: 2, height: '100vh' }}>
       <Grid item xs={12} style={{ backgroundColor: 'blue' }}>
@@ -117,28 +140,30 @@ const AccessControl = () => {
                     <TableCell>Summary</TableCell>
                     <TableCell>Last Updated</TableCell>
                     <TableCell></TableCell>
+                    <TableCell></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {data.map((item) => (
                     <React.Fragment>
                       <TableRow key={item.id} id={item.id}>
-                        <TableCell>
+                        <TableCell id={item.id}>
                           <IconButton
+                            id={item.id}
                             aria-label="expand row"
                             size="small"
-                            onClick={() => setExpanded(!expanded)}
+                            onClick={handleRole}
                           >
-                            {expanded ? (
-                              <RemoveCircleOutlineIcon />
+                            {iconId === item.id && expanded ? (
+                              <RemoveCircleOutlineIcon id={item.id} />
                             ) : (
-                              <AddCircleOutlineIcon />
+                              <AddCircleOutlineIcon id={item.id} />
                             )}
                           </IconButton>
                         </TableCell>
                         <TableCell id={item.id}>{item.role}</TableCell>
                         <TableCell>
-                          <Button variant="contained">
+                          <Button variant="contained" color={accessControl}>
                             {item.accesslevel}
                           </Button>
                         </TableCell>
@@ -147,6 +172,14 @@ const AccessControl = () => {
                         <TableCell>
                           <VisibilityIcon />
                         </TableCell>
+                        <TableCell>
+                          {String(accessValue) === 'allaccess' ||
+                          'restrictedaccess' ? (
+                            <ToggleOnIcon />
+                          ) : (
+                            <ToggleOffIcon />
+                          )}
+                        </TableCell>
                       </TableRow>
                       <TableRow
                         key={`collapse_${item.id}`}
@@ -154,10 +187,10 @@ const AccessControl = () => {
                       >
                         <TableCell
                           style={{ paddingBottom: 0, paddingTop: 0 }}
-                          colSpan={6}
+                          colSpan={7}
                         >
                           <Collapse
-                            in={expanded}
+                            in={iconId === item.id ? expanded : ''}
                             timeout="auto"
                             component="tr"
                             unmountOnExit
@@ -173,11 +206,7 @@ const AccessControl = () => {
                                   backgroundColor: 'blue',
                                 }}
                               >
-                                <Grid
-                                  item
-                                  xs={6}
-                                  style={{ backgroundColor: 'pink' }}
-                                >
+                                <Grid item style={{ backgroundColor: 'pink' }}>
                                   <Grid>
                                     <FormControl
                                       fullWidth
@@ -222,11 +251,7 @@ const AccessControl = () => {
                                     </FormControl>
                                   </Grid>
                                 </Grid>
-                                <Grid
-                                  item
-                                  xs={6}
-                                  style={{ backgroundColor: 'pink' }}
-                                >
+                                <Grid item style={{ backgroundColor: 'pink' }}>
                                   <Grid>
                                     <FormControl
                                       fullWidth
