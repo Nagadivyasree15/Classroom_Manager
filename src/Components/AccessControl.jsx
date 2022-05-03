@@ -15,11 +15,14 @@ import {
   TableRow,
   Button,
   Paper,
+  Card,
+  Collapse,
+  CardContent,
 } from '@material-ui/core';
 import { TabContext, TabList, TabPanel } from '@material-ui/lab';
 import EditIcon from '@material-ui/icons/Edit';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import AddIcon from '@material-ui/icons/Add';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { useState } from 'react';
 import roleData from '../Database/database';
 
@@ -41,14 +44,35 @@ const useStyle = makeStyles({
   tableContainer: {
     height: '55vh',
   },
+  addIcon: {
+    marginTop: '5px',
+  },
+  card: {
+    width: 500,
+    backgroundColor: 'yellow',
+  },
 });
 const AccessControl = () => {
   const classes = useStyle();
   const [tabValue, setTabValue] = useState('1');
+  const [expanded, setExpanded] = useState(false);
+  const [cardId, setCardId] = useState(0);
   const data = roleData;
+  console.log(data);
   const handleChange = (event, newValue) => {
     console.log(newValue, event);
     setTabValue(newValue);
+  };
+  const handleCard = (e) => {
+    if (e.target.parentNode) {
+      let iconId = Number(e.target.parentNode.id);
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].id === iconId) {
+          setCardId(iconId);
+          setExpanded(!expanded);
+        }
+      }
+    }
   };
   return (
     <Box sx={{ flexGrow: 1, p: 2, height: '100vh' }}>
@@ -86,10 +110,23 @@ const AccessControl = () => {
                 </TableHead>
                 <TableBody>
                   {data.map((item) => (
-                    <TableRow key={item.id}>
-                      <TableCell>
-                        <AddIcon />
+                    <TableRow key={item.id} id={item.id}>
+                      <TableCell id={item.id}>
+                        <AddCircleOutlineIcon
+                          className={classes.addIcon}
+                          onClick={handleCard}
+                          id={item.id}
+                        />
                         {item.role}
+                        <Card className={classes.card}>
+                          <Collapse
+                            in={cardId === item.id ? expanded : null}
+                            timeout="auto"
+                            unmountOnExit
+                          >
+                            <CardContent>Hello</CardContent>
+                          </Collapse>
+                        </Card>
                       </TableCell>
                       <TableCell>
                         <Button variant="contained">{item.accesslevel}</Button>

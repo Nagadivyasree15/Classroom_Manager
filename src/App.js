@@ -37,41 +37,41 @@ function App() {
     <Box>
       <Box className={classes.box}>
         <Grid container>
-          <Grid item container display="flex" xs="2">
-            <Grid item xs="1">
+          <Grid item container display="flex" xs={2}>
+            <Grid item xs={1}>
               <FiberManualRecordIcon className={classes.icon} />
             </Grid>
-            <Grid item xs="1" className={classes.grid}>
+            <Grid item xs={1} className={classes.grid}>
               Classroom Manager
             </Grid>
           </Grid>
-          <Grid item xs="6"></Grid>
-          <Grid item xs="2" container direction="row" alignItems="center">
-            <Grid item xs="1" className={classes.nameIcon}>
+          <Grid item xs={6}></Grid>
+          <Grid item xs={2} container direction="row" alignItems="center">
+            <Grid item xs={1} className={classes.nameIcon}>
               <FiberManualRecordIcon fontSize="large" />
             </Grid>
-            <Grid item xs="1" className={classes.name}>
+            <Grid item xs={1} className={classes.name}>
               Divya
             </Grid>
           </Grid>
           <Grid
             item
-            xs="1"
+            xs={1}
             container
             direction="column"
             display="flex"
-            justify="center"
+            justifyContent="center"
             alignItems="center"
           >
             <NotificationsNoneIcon fontSize="large" className={classes.notf} />
           </Grid>
           <Grid
             item
-            xs="1"
+            xs={1}
             container
             direction="column"
             display="flex"
-            justify="center"
+            justifyContent="center"
           >
             <HelpOutlineIcon fontSize="large" className={classes.notf} />
           </Grid>
