@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "role": "Enrolling Students",
+    "accesslevel": "All Access",
+    "summary": ["View", "Create", "Edit", "Delete"],
+    "lastupdated": "1 min ago"
+  },
+  {
+    "id": 2,
+    "role": "Financial Details",
+    "accesslevel": "No Access",
+    "summary": "-",
+    "lastupdated": "1 min ago"
+  },
+  {
+    "id": 3,
+    "role": "Furniture Order",
+    "accesslevel": "Restricted Access",
+    "summary": ["View", "Create"],
+    "lastupdated": "1 min ago"
+  },
+  {
+    "id": 4,
+    "role": "Technological Equipment",
+    "accesslevel": "Restricted Access",
+    "summary": ["View", "Create"],
+    "lastupdated": "1 min ago"
+  },
+  {
+    "id": 5,
+    "role": "Organisational Modifation",
+    "accesslevel": "All Access",
+    "summary": ["View", "Create", "Edit", "Delete"],
+    "lastupdated": "1 min ago"
+  },
+  {
+    "id": 5,
+    "role": "Permissions & Access Control",
+    "accesslevel": "No Access",
+    "summary": "-",
+    "lastupdated": "1 min ago"
+  }
+]
