@@ -12,9 +12,9 @@ import {
 } from '@material-ui/core';
 import { TabContext, TabList, TabPanel } from '@material-ui/lab';
 import { useNavigate, useLocation } from 'react-router-dom';
-//import Permissions from '../Components/Permissions';
-import AccessControl from '../Components/AccessControl';
-import { useState } from 'react';
+import Permissions from '../Components/Permissions';
+//import AccessControl from '../Components/AccessControl';
+import { useState, useEffect } from 'react';
 import RssFeedIcon from '@material-ui/icons/RssFeed';
 import SecurityIcon from '@material-ui/icons/Security';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
@@ -60,6 +60,13 @@ const SideBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [tabValue, setTabValue] = useState('1');
+  const [state, setState] = useState('/');
+  useEffect(() => {
+    console.log(location.pathname);
+    if (location.pathname === 'permissions' || location.pathname === '/') {
+      setState(<Permissions />);
+    }
+  }, [location.pathname]);
   const sideBarItems = [
     {
       text: 'Projects',
@@ -78,7 +85,6 @@ const SideBar = () => {
     },
   ];
   const handleChange = (event, newValue) => {
-    console.log(newValue, event);
     setTabValue(newValue);
   };
   return (
@@ -102,9 +108,7 @@ const SideBar = () => {
               />
             </TabList>
             <Divider />
-            <TabPanel value="1">
-              <AccessControl />
-            </TabPanel>
+            <TabPanel value="1">{state}</TabPanel>
             <TabPanel value="2">Approval matrix</TabPanel>
           </TabContext>
         </Box>

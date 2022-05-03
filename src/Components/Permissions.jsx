@@ -96,9 +96,7 @@ const Permissions = () => {
                   </RadioGroup>
                 </TableCell>
                 <TableCell>
-                  <Button variant="contained" borderRadius="50">
-                    {item['Access Level']}
-                  </Button>
+                  <Button variant="contained">{item['Access Level']}</Button>
                 </TableCell>
                 <TableCell>{item['No of members']}</TableCell>
                 <TableCell>{item['Last Updated']}</TableCell>
