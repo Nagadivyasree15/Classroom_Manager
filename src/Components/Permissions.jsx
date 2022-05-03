@@ -43,7 +43,6 @@ const Permissions = () => {
   const [department, setDepartment] = useState('');
   const data = departments;
   const handleChange = (e) => {
-    console.log(e.target.value);
     setDepartment(e.target.value);
   };
   return (
@@ -95,7 +94,7 @@ const Permissions = () => {
                 <TableCell>
                   <Button variant="contained">{item['Access Level']}</Button>
                 </TableCell>
-                <TableCell>{item['No of members']}</TableCell>
+                <TableCell align="center">{item['No of members']}</TableCell>
                 <TableCell>{item['Last Updated']}</TableCell>
                 <TableCell>
                   <VisibilityIcon />

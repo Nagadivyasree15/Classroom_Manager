@@ -61,9 +61,9 @@ const useStyle = makeStyles({
   addIcon: {
     marginTop: '5px',
   },
-  card: {
-    width: 500,
-    backgroundColor: 'yellow',
+  form: {
+    fontWeight: 'bold',
+    color: '#000000',
   },
 });
 const AccessControl = () => {
@@ -102,7 +102,6 @@ const AccessControl = () => {
         let cellId = Number(e.target.parentNode.id);
         for (let i = 0; i < data.length; i++) {
           if (data[i].id === cellId) {
-            console.log(cellId, data[i].id);
             setIconId(cellId);
             setExpanded(!expanded);
           }
@@ -111,11 +110,11 @@ const AccessControl = () => {
     }
   };
   const goToPermissions = () => {
-    navigate('/permissions');
+    navigate('/');
   };
   return (
     <Box sx={{ flexGrow: 1, p: 2, height: '100vh' }}>
-      <Grid item xs={12} style={{ backgroundColor: 'blue' }}>
+      <Grid item xs={12}>
         <List>
           <ListItem className={classes.list}>
             <ListItemIcon onClick={goToPermissions}>
@@ -176,7 +175,10 @@ const AccessControl = () => {
                             {item.accesslevel}
                           </Button>
                         </TableCell>
-                        <TableCell>{item.summary}</TableCell>
+                        <TableCell>
+                          {item.summary}
+                          <Divider orientation="vertical" />
+                        </TableCell>
                         <TableCell>{item.lastupdated}</TableCell>
                         <TableCell>
                           <VisibilityIcon />
@@ -190,16 +192,13 @@ const AccessControl = () => {
                           )}
                         </TableCell>
                       </TableRow>
-                      <TableRow
-                        key={`collapse_${item.id}`}
-                        style={{ backgroundColor: 'yellow' }}
-                      >
+                      <TableRow key={`collapse_${item.id}`}>
                         <TableCell
                           style={{ paddingBottom: 0, paddingTop: 0 }}
                           colSpan={7}
                         >
                           <Collapse
-                            in={iconId === item.id ? expanded : ''}
+                            in={iconId === item.id ? expanded : null}
                             timeout="auto"
                             component="tr"
                             unmountOnExit
@@ -208,22 +207,13 @@ const AccessControl = () => {
                               <Typography gutterBottom component="div">
                                 {`All aspects in the ${item.role} module`}
                               </Typography>
-                              <Grid
-                                sx={{ flexGrow: 1 }}
-                                container
-                                style={{
-                                  backgroundColor: 'blue',
-                                }}
-                              >
-                                <Grid item style={{ backgroundColor: 'pink' }}>
+                              <Grid sx={{ flexGrow: 1 }} container>
+                                <Grid item>
                                   <Grid>
-                                    <FormControl
-                                      fullWidth
-                                      style={{
-                                        backgroundColor: 'orange',
-                                      }}
-                                    >
-                                      <FormLabel>Access Control</FormLabel>
+                                    <FormControl fullWidth>
+                                      <FormLabel className={classes.form}>
+                                        Access Control
+                                      </FormLabel>
                                       <RadioGroup
                                         value={accessValue}
                                         onChange={handleAccess}
@@ -260,15 +250,12 @@ const AccessControl = () => {
                                     </FormControl>
                                   </Grid>
                                 </Grid>
-                                <Grid item style={{ backgroundColor: 'pink' }}>
+                                <Grid item>
                                   <Grid>
-                                    <FormControl
-                                      fullWidth
-                                      style={{
-                                        backgroundColor: 'green',
-                                      }}
-                                    >
-                                      <FormLabel>Permissions</FormLabel>
+                                    <FormControl fullWidth>
+                                      <FormLabel className={classes.form}>
+                                        Permissions
+                                      </FormLabel>
                                       <FormGroup>
                                         <FormControlLabel
                                           control={

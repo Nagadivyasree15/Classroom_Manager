@@ -1,8 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Box, Grid, makeStyles } from '@material-ui/core';
 import SideBar from './Components/SideBar';
-import Permissions from './Components/Permissions';
+import NotFound from './Components/NotFound';
+import Classrooms from './Components/Classrooms';
+import Projects from './Components/Projects';
 import AccessControl from './Components/AccessControl';
+import Permissions from './Components/Permissions';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
@@ -81,9 +84,11 @@ function App() {
       <BrowserRouter>
         <SideBar />
         <Routes>
-          <Route path="/" element={<SideBar />} />
-          <Route path="/access_control" element={<AccessControl />} />
           <Route path="/permissions" element={<Permissions />} />
+          <Route path="/access_control" element={<AccessControl />} />
+          <Route path="/classrooms" element={<Classrooms />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </Box>
