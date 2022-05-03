@@ -34,7 +34,6 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import ToggleOffIcon from '@material-ui/icons/ToggleOff';
 import ToggleOnIcon from '@material-ui/icons/ToggleOn';
-//import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import React, { useState } from 'react';
 import roleData from '../Database/database';
@@ -72,7 +71,7 @@ const AccessControl = () => {
   const [tabValue, setTabValue] = useState('1');
   const [expanded, setExpanded] = useState(false);
   const [accessValue, setAccessValue] = useState('allaccess');
-  const [accessControl, setAccessControl] = useState('primary');
+  const [accessControl, setAccessControl] = useState('default');
   const [iconId, setIconId] = useState(0);
   const [checked, setChecked] = useState({
     view: true,
@@ -83,6 +82,7 @@ const AccessControl = () => {
   const { view, edit, create, remove } = checked;
   const data = roleData;
   const handleChange = (event, newValue) => {
+    console.log(newValue);
     setTabValue(newValue);
   };
   const handleAccess = (e) => {
